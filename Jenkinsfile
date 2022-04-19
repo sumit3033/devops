@@ -1,30 +1,11 @@
-pipeline { 
-agent any 
-    stages { 
-        stage ('Build') { 
-            steps{
-               echo "In Build Stage"
-          }
+// Scripted //
+node {
+    stage('Example') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
         }
-        stage ('Test') { 
-           steps{
-              sh "python3 test.py"
-          }
-        }
-        stage ('QA') { 
-           steps{ 
-            echo "in QA Stage"
-          }
-        }
-        stage ('Deploy') { 
-           steps{
-              sh "ansible-playbook network.yaml"
-          }
-        }
-        stage ('Monitor') { 
-           steps{
-             echo "in Test stage"
-           }
-        }
-    }           
- }
+    }
+}
+// Declarative //
