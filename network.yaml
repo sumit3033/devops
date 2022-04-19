@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  become: no
+  tasks:
+    - name: "Show Network Interfaces"
+      command: ifconfig
+      register: details
+    - name: 'Get Interfaces details'
+      debug:
+        msg: "{{ details.stdout }}"
+    - name: "Show memory usage"
+      command: "df -k"
+      register: disk_free
+    - name: 'Get Memory details'
+      debug:
+        msg: "{{ disk_free.stdout }}"
